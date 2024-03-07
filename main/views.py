@@ -23,13 +23,11 @@ def create_task(request):
 @api_view(['GET'])
 def get_task_by_id(request,pk):
     try:
-        task = Task.objects.get(id=pk)
-        serializer = TaskSerializer(instance=task,data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+        task = Task.objects.get(id = pk)
+        serializer = TaskSerializer(task)
         return Response(serializer.data,status=200)
     except Task.DoesNotExist:
-        return Response('Not found')
+        return Response('Not Found')
 
 @api_view(['PUT'])
 def update_task(request,pk):
